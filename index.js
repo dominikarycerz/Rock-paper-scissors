@@ -34,39 +34,53 @@ let game = () => {
 
     if (computerTotal > userTotal && computerTotal == 5) {
       div.innerHTML = "🏆 GAME OVER: Computer won the game! 🏆";
+      buttons.forEach(button => button.removeEventListener('click', playerClick));
+      secondDiv.innerHTML =  "Press F4 to play again";
+
     } else if (computerTotal < userTotal && userTotal == 5) {
       div.innerHTML = "🏆 GAME OVER: You won! 🏆";
+      buttons.forEach(button => button.removeEventListener('click', playerClick));
+      secondDiv.innerHTML =  "Press F4 to play again";
+
     } else if (computerTotal === userTotal && computerTotal == 5) {
       div.innerHTML = "🏆 GAME OVER: It's a tie! 🏆";
+      buttons.forEach(button => button.removeEventListener('click', playerClick));
+      secondDiv.innerHTML =  "Press F4 to play again";
     }
-
   }
 
   // This function compares choices of the computer and user and displays the result of each round
   let playRound = (playerSelection, computerSelection) => {
 
-    let currentPoints = `POINTS: Computer: ${computerTotal}, User: ${userTotal}`;
+    let currentPoints = `${computerTotal}:${userTotal}`;
 
     if (computerSelection === "Rock" && playerSelection === "Paper") {
-      div.innerHTML = `<b>User Choice:</b> ${playerSelection} VS <b>Computer Choice:</b> ${computerSelection} 🏁 You win this round! 🏁`;
+      div.innerHTML = `${playerSelection} VS ${computerSelection}`;
       userTotal++;
+      secondDiv.innerHTML =  `${currentPoints} 🏁 You win this round! 🏁`;
     } else if (computerSelection === "Rock" && playerSelection === "Scissors") {
-      div.innerHTML = `<b>User Choice:</b> ${playerSelection} VS <b>Computer Choice:</b> ${computerSelection} 🏁 You lose this round! Rock beats Scissors. 🏁`;
+      div.innerHTML = `${playerSelection} VS ${computerSelection}`;
       computerTotal++;
+      secondDiv.innerHTML = `${currentPoints} 🏁 You lose this round! Rock beats Scissors. 🏁`
     } else if (computerSelection === "Paper" && playerSelection === "Scissors") {
-      div.innerHTML = `<b>User Choice:</b> ${playerSelection} VS <b>Computer Choice:</b> ${computerSelection} 🏁 You win this round! 🏁`;
+      div.innerHTML = `${playerSelection} VS ${computerSelection}`;
       userTotal++;
+      secondDiv.innerHTML = `${currentPoints} 🏁 You win this round! 🏁`;
     } else if (computerSelection === "Paper" && playerSelection === "Rock") {
-      div.innerHTML = `<b>User Choice:</b> ${playerSelection} VS <b>Computer Choice:</b> ${computerSelection} 🏁 You lose this round! Paper beats Rock! 🏁`;
+      div.innerHTML = `${playerSelection} VS ${computerSelection}`;
       computerTotal++;
+      secondDiv.innerHTML = `${currentPoints} 🏁 You lose this round! Paper beats Rock! 🏁`;
     } else if (computerSelection === "Scissors" && playerSelection === "Paper") {
-      div.innerHTML = `<b>User Choice:</b> ${playerSelection} VS <b>Computer Choice:</b> ${computerSelection} 🏁 You lose this round! Scissors beats Rock! 🏁`;
+      div.innerHTML = `${playerSelection} VS ${computerSelection}`;
       computerTotal++;
+      secondDiv.innerHTML =  `${currentPoints} 🏁 You lose this round! Scissors beats Rock! 🏁`;
     } else if (computerSelection === "Scissors" && playerSelection === "Rock") {
-      div.innerHTML = `<b>User Choice:</b> ${playerSelection} VS <b>Computer Choice:</b> ${computerSelection} 🏁 You win this round! 🏁`;
+      div.innerHTML = `${playerSelection} VS ${computerSelection}`;
       userTotal++;
+      secondDiv.innerHTML =  `${currentPoints} 🏁 You win this round! 🏁`;
     } else {
-      div.innerHTML = `<b>User Choice:</b> ${playerSelection} VS <b>Computer Choice:</b> ${computerSelection} 🏁 It's a tie! 🏁`;
+      div.innerHTML = `${playerSelection} VS ${computerSelection}`;
+      secondDiv.innerHTML = `${currentPoints} 🏁 It's a tie! 🏁`;
     }
 
     gameResult();
@@ -75,6 +89,11 @@ let game = () => {
 
   let div = document.createElement('div');
   document.body.appendChild(div);
+  div.classList.add("firstDiv");
+
+  let secondDiv = document.createElement('div');
+  document.body.appendChild(secondDiv);
+  secondDiv.classList.add("secondDiv");
 
   // Add Event listener to individual buttons to listen for a 'click' and run the function that nominates the  user's choice
   const buttons = document.querySelectorAll('button');
